@@ -1,0 +1,21 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "composeLaunchAction": "LaunchBrowser",
+      "composeLaunchServiceName": "dx-api",
+      "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        //"dx-api-dapr": "StartWithoutDebugging",
+        //"dapr-placement": "StartWithoutDebugging",
+        //"rabbitmq": "StartWithoutDebugging",
+        //"redis": "StartWithoutDebugging",
+        //"seq": "StartWithoutDebugging",
+        //"sqldata": "StartWithoutDebugging",
+        //"zipkin": "StartWithoutDebugging"
+        "dx-api": "StartDebugging"
+      }
+    }
+  }
+}

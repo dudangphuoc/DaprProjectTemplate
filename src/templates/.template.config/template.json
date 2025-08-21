@@ -1,0 +1,330 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Võ Hoàng Vũ",
+  "classifications": [
+    "AspNetCore",
+    "RemoteProcedureCall", 
+    "Solution",
+    "Dapr",
+    "Clean Architecture"
+  ],
+  "name": "DX Dapr Clean Architecture Template",
+  "defaultName": "MyDaprApp",
+  "identity": "DX.Dapr.Template.v2",
+  "shortName": "dxdapr",
+  "tags": {
+    "language": "C#",
+    "type": "solution"
+  },
+  "sourceName": "DXProjectName", 
+  "preferNameDirectory": true,
+  "precedence": "5000",
+  "guids": [
+    "0E62310C-D76A-4681-9926-B1BFFDC379FC",
+    "032123E7-E4E0-4B17-9564-ECA4B57F30B7"
+  ],
+  "symbols": {
+    "Framework": {
+      "type": "parameter",
+      "description": "Target framework cho dự án",
+      "datatype": "choice",
+      "choices": [
+        {
+          "choice": "net10.0",
+          "description": "Target .NET 10.0 (Phiên bản mới nhất)"
+        },
+        {
+          "choice": "net9.0",
+          "description": "Target .NET 9.0"
+        }
+      ],
+      "replaces": "net10.0",
+      "defaultValue": "net10.0"
+    },
+    "ProjectName": {
+      "type": "parameter",
+      "description": "Tên của dự án (được sử dụng cho namespace và tên file dự án)",
+      "datatype": "text",
+      "defaultValue": "MyDaprApp",
+      "fileRename": "DXProjectName",
+      "replaces": "DXProjectName",
+      "forms": {
+        "global": ["identity", "lower", "kebab-case", "pascal-case"]
+      }
+    },
+    "RootNamespace": {
+      "type": "derived", 
+      "valueSource": "ProjectName",
+      "valueTransform": "identity",
+      "description": "Root namespace cho dự án",
+      "replaces": "DXProjectName"
+    },
+    "CompanyName": {
+      "type": "parameter",
+      "description": "Tên công ty hoặc tổ chức cho metadata dự án",
+      "datatype": "text",
+      "defaultValue": "DX Software",
+      "replaces": "AuthorName"
+    },
+    "ProjectDescription": {
+      "type": "parameter",
+      "description": "Mô tả cho dự án (được sử dụng trong metadata package và tài liệu)",
+      "datatype": "text",
+      "defaultValue": "Ứng dụng phân tán dựa trên Dapr được xây dựng với ASP.NET Core và Clean Architecture",
+      "replaces": "DescriptionContent"
+    },
+    "ProjectVersion": {
+      "type": "parameter",
+      "description": "Phiên bản ban đầu cho dự án", 
+      "datatype": "text",
+      "defaultValue": "1.0.0",
+      "replaces": "1.0.0"
+    },
+    "DatabaseProvider": {
+      "type": "parameter",
+      "description": "Nhà cung cấp cơ sở dữ liệu để sử dụng cho Entity Framework",
+      "datatype": "choice",
+      "choices": [
+        {
+          "choice": "PostgreSQL",
+          "description": "Sử dụng cơ sở dữ liệu PostgreSQL (Khuyến nghị cho production)"
+        },
+        {
+          "choice": "SqlServer",
+          "description": "Sử dụng cơ sở dữ liệu SQL Server"
+        },
+        {
+          "choice": "InMemory",
+          "description": "Sử dụng cơ sở dữ liệu In-Memory (Chỉ cho Development/Testing)"
+        }
+      ],
+      "defaultValue": "PostgreSQL",
+      "replaces": "PostgreSQL"
+    },
+    "EnableSwagger": {
+      "type": "parameter",
+      "description": "Bật tài liệu Swagger/OpenAPI và giao diện người dùng",
+      "datatype": "bool",
+      "defaultValue": "true"
+    },
+    "EnableRedis": {
+      "type": "parameter",
+      "description": "Bật hỗ trợ Redis distributed caching",
+      "datatype": "bool",
+      "defaultValue": "true"
+    },
+    "EnableAuthentication": {
+      "type": "parameter",
+      "description": "Bật xác thực JWT Bearer",
+      "datatype": "bool",
+      "defaultValue": "true"
+    },
+    "EnableHealthChecks": {
+      "type": "parameter",
+      "description": "Bật ASP.NET Core health checks", 
+      "datatype": "bool",
+      "defaultValue": "true"
+    },
+    "EnableOpenTelemetry": {
+      "type": "parameter",
+      "description": "Bật OpenTelemetry observability (tracing, metrics, logging)",
+      "datatype": "bool",
+      "defaultValue": "true"
+    },
+    "HttpPort": {
+      "type": "parameter",
+      "datatype": "integer",
+      "description": "Số cổng cho HTTP endpoint trong launchSettings.json"
+    },
+    "HttpPortGenerated": {
+      "type": "generated",
+      "generator": "port",
+      "parameters": {
+        "low": 5000,
+        "high": 5299
+      }
+    },
+    "HttpPortReplacer": {
+      "type": "generated", 
+      "generator": "coalesce",
+      "parameters": {
+        "sourceVariableName": "HttpPort",
+        "fallbackVariableName": "HttpPortGenerated"
+      },
+      "replaces": "33948"
+    },
+    "HttpsPort": {
+      "type": "parameter",
+      "datatype": "integer",
+      "description": "Số cổng cho HTTPS endpoint trong launchSettings.json"
+    },
+    "HttpsPortGenerated": {
+      "type": "generated",
+      "generator": "port", 
+      "parameters": {
+        "low": 7000,
+        "high": 7299
+      }
+    },
+    "HttpsPortReplacer": {
+      "type": "generated",
+      "generator": "coalesce",
+      "parameters": {
+        "sourceVariableName": "HttpsPort", 
+        "fallbackVariableName": "HttpsPortGenerated"
+      },
+      "replaces": "44350"
+    },
+    "DaprAppId": {
+      "type": "parameter",
+      "description": "Định danh ứng dụng Dapr", 
+      "datatype": "text",
+      "defaultValue": "my-dapr-app",
+      "replaces": "my-dapr-app"
+    },
+    "DaprHttpPort": {
+      "type": "parameter",
+      "description": "Cổng HTTP của Dapr sidecar",
+      "datatype": "integer",
+      "defaultValue": "3500",
+      "replaces": "3500"
+    },
+    "DaprGrpcPort": {
+      "type": "parameter", 
+      "description": "Cổng gRPC của Dapr sidecar",
+      "datatype": "integer",
+      "defaultValue": "50001",
+      "replaces": "50001"
+    },
+    "skipRestore": {
+      "type": "parameter",
+      "datatype": "bool",
+      "description": "Bỏ qua việc restore NuGet package sau khi tạo dự án",
+      "defaultValue": "false"
+    }
+  },
+  "sources": [
+    {
+      "modifiers": [
+        {
+          "condition": "(!EnableSwagger)",
+          "exclude": [
+            "**/Swagger/**",
+            "**/*Swagger*"
+          ]
+        },
+        {
+          "condition": "(!EnableRedis)", 
+          "exclude": [
+            "**/Redis/**",
+            "**/*Redis*"
+          ]
+        },
+        {
+          "condition": "(!EnableAuthentication)",
+          "exclude": [
+            "**/Authentication/**",
+            "**/*Auth*",
+            "**/Authorization/**"
+          ]
+        },
+        {
+          "condition": "(!EnableHealthChecks)",
+          "exclude": [
+            "**/HealthChecks/**",
+            "**/*HealthCheck*"
+          ]
+        },
+        {
+          "condition": "(!EnableOpenTelemetry)",
+          "exclude": [
+            "**/OpenTelemetry/**",
+            "**/*OpenTelemetry*",
+            "**/Observability/**"
+          ]
+        },
+        {
+          "rename": {
+            "editorconfig": ".editorconfig",
+            "gitignore": ".gitignore",
+            "gitattributes": ".gitattributes"
+          },
+          "exclude": [
+            ".template.config/**",
+            "**/.template.config/**",
+            ".vs/**",
+            ".vscode/**",
+            ".idea/**", 
+            ".DS_Store/**",
+            "**/.vs/**",
+            "**/.vscode/**",
+            "**/.idea/**",
+            "**/.DS_Store/**",
+            "**/.sonarqube/**",
+            "**/.sonarlint/**",
+            "**/TestResults/**",
+            "**/bin/**",
+            "**/obj/**",
+            "**/sonarqubecoverage/**",
+            "AutoReviewCode.bat",
+            "*.user",
+            "*.suo",
+            ".vscode/**",
+            "**/Thumbs.db"
+          ]
+        }
+      ]
+    }
+  ],
+  "primaryOutputs": [
+    {
+      "path": "DXProjectName.sln"
+    },
+    {
+      "path": "src/DXProjectName.Api/DXProjectName.Api.csproj"
+    },
+    {
+      "path": "src/DXProjectName.Domain/DXProjectName.Domain.csproj"
+    },
+    {
+      "path": "src/DXProjectName.Infrastructure/DXProjectName.Infrastructure.csproj"
+    }
+  ],
+  "postActions": [
+    {
+      "condition": "(!skipRestore)",
+      "description": "Restore các NuGet package cần thiết cho dự án này.",
+      "manualInstructions": [
+        {
+          "text": "Chạy 'dotnet restore' để restore dependencies của dự án"
+        }
+      ],
+      "actionId": "210D431B-A78B-4D2F-B762-4ED3E3EA9025",
+      "continueOnError": true
+    },
+    {
+      "description": "Hướng dẫn các bước tiếp theo sau khi tạo template",
+      "manualInstructions": [
+        {
+          "text": "Template đã được tạo thành công!"
+        },
+        {
+          "text": "Các bước tiếp theo:"
+        },
+        {
+          "text": "1. Cập nhật connection strings trong appsettings.json"
+        },
+        {
+          "text": "2. Cấu hình Dapr components (nếu sử dụng tính năng Dapr)"
+        },
+        {
+          "text": "3. Chạy: dapr run --app-id DaprAppId --app-port HttpPortReplacer --dapr-http-port DaprHttpPort -- dotnet run"
+        },
+        {
+          "text": "4. Truy cập: https://localhost:HttpsPortReplacer/swagger (nếu Swagger được bật)"
+        }
+      ],
+      "actionId": "AC1156F7-BB77-4DB8-B5F2-A4CEF1B5A4A2"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://appliedengdesign.github.io/cnccodes-json-schema/draft/2022-07/schema",
+  "icon": "prototype.png",
+  "symbolInfo": [
+    {
+      "id": "raidengates",
+      "name": {
+        "text": "Raiden Gates"
+      },
+      "isVisible": "true"
+    },
+    {
+      "id": "Description",
+      "name": {
+        "text": "Description"
+      },
+      "isVisible": "true"
+    }
+  ]
+}

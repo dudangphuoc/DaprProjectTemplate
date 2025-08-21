@@ -1,0 +1,22 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: dxdapr-statestore
+  namespace: eshop
+spec:
+  type: state.redis
+  version: v1
+  metadata:
+  - name: redisHost
+    value: redis:6379
+  - name: redisPassword
+    secretKeyRef:
+      name: State.RedisPassword
+      key: State.RedisPassword
+  - name: actorStateStore
+    value: "true"
+auth:
+  secretStore: eshopondapr-secretstore
+# scopes:
+# - dx-app-1-api
+# - dx-app-2-api

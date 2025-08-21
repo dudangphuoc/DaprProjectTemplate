@@ -1,0 +1,69 @@
+services:
+
+  # maildev:
+  #   ports:
+  #     - "5500:1080"
+  #     - "1025:1025"
+
+  # rabbitmq:
+  #   ports:
+  #     - "5672:5672"
+  #     - "15672:15672"
+
+  # redis:
+  #   image: redis:alpine
+  #   ports:
+  #     - "5379:6379"
+
+  # seq:
+  #   environment:
+  #     - ACCEPT_EULA=Y
+  #   ports:
+  #     - "5340:80"
+
+  # sqldata:
+  #   environment:
+  #     - SA_PASSWORD=Pass@word
+  #     - ACCEPT_EULA=Y
+  #   ports:
+  #     - "5433:1433"
+  #   volumes:
+  #     - eshop-sqldata:/var/opt/mssql
+
+  # zipkin:
+  #   ports:
+  #     - "5411:9411"
+
+  dx-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:8080
+    ports:
+      - "5103:8080"
+      - "50001:50001"
+
+  # dx-api-dapr:
+  #   command: ["./daprd",
+  #     "-app-id", "basket-api",
+  #     "-app-port", "80",
+  #     "-components-path", "/components",
+  #     "-config", "/configuration/eshop-config.yaml"
+  #     ]
+  #   volumes:
+  #     - "./dapr/components/:/components"
+  #     - "./dapr/configuration/:/configuration"
+
+ 
+  # dapr-placement:
+  #   command: ["./placement", "-port", "50000", "-log-level", "debug"]
+  #   ports:
+  #     - "50000:50000"
+
+volumes:
+  eshop-sqldata:
+    external: false
+  eshop-nosqldata:
+    external: false
+  eshop-basketdata:
+    external: false
+

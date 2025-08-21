@@ -1,0 +1,37 @@
+services:
+
+  # maildev:
+  #   image: maildev/maildev:latest
+    
+  # rabbitmq:
+  #   image: rabbitmq:3.13.7-management
+
+  # redis:
+  #   image: redis:alpine
+
+  # seq:
+  #   image: datalust/seq:latest
+
+  # # Use the Azure SQL Edge version so we can also run on Apple Sillicon (thanks @ChristianWeyer)
+  # sqldata:
+  #   image: mcr.microsoft.com/azure-sql-edge
+
+  # zipkin:
+  #   image: openzipkin/zipkin-slim:latest
+    
+    
+  dx-api:
+    image: ${REGISTRY:-dx}/dx.api:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: src/DXProjectName.Api/Dockerfile
+
+  # dx-api-dapr:
+  #   image: "daprio/daprd:1.9.4"
+  #   network_mode: "service:payment-api"
+  #   depends_on:
+  #     - payment-api
+
+
+  # dapr-placement:
+  #   image: "daprio/dapr:1.9.4"
