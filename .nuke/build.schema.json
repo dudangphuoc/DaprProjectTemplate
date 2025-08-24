@@ -25,7 +25,9 @@
       "type": "string",
       "enum": [
         "Clean",
+        "CleanTemplates",
         "Compile",
+        "OptimizeTemplateSize",
         "Pack",
         "Publish",
         "Restore"

@@ -1,0 +1,12 @@
+<Project>
+  <PropertyGroup>
+    <Authors>Gates Raiden</Authors>
+    <Copyright>Copyright 2025 Gates Raiden</Copyright>
+    <IsPackable>false</IsPackable>
+    <WarnOnPackingNonPackableProject>false</WarnOnPackingNonPackableProject>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <SolutionDir>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), DXProjectName.sln))\</SolutionDir>
+  </PropertyGroup>
+</Project>

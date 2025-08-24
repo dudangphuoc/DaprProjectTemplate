@@ -5,7 +5,7 @@
 [Rr]eleases/
 x64/
 x86/
-build/
+# build/
 bld/
 [Bb]in/
 [Oo]bj/
@@ -35,7 +35,7 @@ project.fragment.lock.json
 artifacts/
 
 *_i.c
-*_p.c
+*uildp.c
 *_i.h
 *.ilk
 *.meta
@@ -286,7 +286,7 @@ output/
 # OS generated files
 .DS_Store
 .DS_Store?
-._*
+#._*
 .Spotlight-V100
 .Trashes
 ehthumbs.db
